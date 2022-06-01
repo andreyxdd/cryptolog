@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Card, Row, Col, Input } from "antd";
 import { Loader } from "../components";
 
-import { useGetCryptosQuery } from "../services/cryptoApi";
+import { useGetCryptosQuery } from "../api/cryptoApi";
 
 interface ICryptocurrencies {
   simplified?: boolean;
@@ -23,7 +23,7 @@ function Cryptocurrencies({ simplified }: ICryptocurrencies) {
   setCryptos(filteredData);
  }, [cryptosList, searchItem]);
 
- if (isFetching) return <Loader/>;
+ if (!cryptosList && isFetching) return <Loader/>;
 
  return (
   <>

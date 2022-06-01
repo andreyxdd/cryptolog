@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const cryptoApiHeaders = {
   'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*',
+  //'Access-Control-Allow-Origin': '*',
   'x-access-token':'coinranking905ab4547db0d22ac12475152245f36814bf6182bff1e321'
 }
 
@@ -16,6 +16,13 @@ const createRequest = (url: string) => ({
   headers: cryptoApiHeaders
 });
 
+const coinGeckoBaseUrl = 'https://api.coingecko.com/api/v3/'
+
+const createCoinGeckoRequest = (url: string) => ({
+  url: `${coinGeckoBaseUrl}${url}`,
+  method: 'GET'
+});
+
 export const cryptoApi = createApi({
   reducerPath: 'cryptoApi',
   baseQuery: fetchBaseQuery({ baseUrl }),
@@ -23,16 +30,28 @@ export const cryptoApi = createApi({
     getCryptos: builder.query({
       query: (count) => createRequest(`/coins?limit=${count}`),
     }),
+    getCoinGeckoId: builder.query({
+      query: (ticker) => createCoinGeckoRequest(`/search?query=${ticker}`),
+    }),
     getExchanges: builder.query({
       query: () => createRequest('/exchanges'),
     }),
     getCryptoDetails: builder.query({
-      query: (coinId) => createRequest(`/coin/${coinId}`),
+      query: (coinId) => {
+        console.log(coinId)
+        return createRequest(`/coin/${coinId}`)
+      }
     }),
     getCryptoHistory: builder.query({
-      query: ({ coinId, timeperiod }) => createRequest(`coin/${coinId}/history/${timeperiod}`),
+      query: ({ coinId, timeperiod }) => createRequest(`/coin/${coinId}/history?timePeriod=${timeperiod}`),
     }),
   }),
 });
 
-export const { useGetCryptosQuery, useGetCryptoDetailsQuery, useGetExchangesQuery, useGetCryptoHistoryQuery } = cryptoApi;
+export const {
+  useGetCryptosQuery,
+  useGetCoinGeckoIdQuery,
+  useGetExchangesQuery,
+  useGetCryptoDetailsQuery,
+  useGetCryptoHistoryQuery
+} = cryptoApi;

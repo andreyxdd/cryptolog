@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Select, Typography, Row, Col, Avatar, Card } from "antd";
 import moment from "moment";
 
-import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
-import { useGetCryptosQuery } from "../services/cryptoApi";
+import { useGetCryptoNewsQuery } from "../api/cryptoNewsApi";
+import { useGetCryptosQuery } from "../api/cryptoApi";
 import { Loader } from "../components";
 
 const { Text, Title } = Typography;

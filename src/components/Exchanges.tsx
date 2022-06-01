@@ -4,7 +4,7 @@ import { Collapse, Row, Col, Typography, Avatar } from 'antd';
 import HTMLReactParser from 'html-react-parser';
 import { useParams } from "react-router-dom";
 
-import { useGetExchangesQuery } from '../services/cryptoApi';
+import { useGetExchangesQuery } from '../api/cryptoApi';
 import Loader from './Loader';
 
 const { Text } = Typography;

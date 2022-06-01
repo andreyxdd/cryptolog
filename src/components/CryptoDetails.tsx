@@ -18,7 +18,7 @@ import {
 import {
   useGetCryptoDetailsQuery,
   useGetCryptoHistoryQuery,
-} from "../services/cryptoApi";
+} from "../api/cryptoApi";
 import Loader from "./Loader";
 import LineChart from "./LineChart";
 
@@ -76,7 +76,7 @@ const CryptoDetails = () => {
     },
     {
       title: "Aprroved Supply",
-      value: cryptoDetails.approvedSupply ? (
+      value: cryptoDetails.supply.confirmed ? (
         <CheckOutlined />
       ) : (
         <StopOutlined />
@@ -85,12 +85,12 @@ const CryptoDetails = () => {
     },
     {
       title: "Total Supply",
-      value: `$ ${millify(cryptoDetails.totalSupply)}`,
+      value: cryptoDetails.supply.total ? `$ ${millify(cryptoDetails.supply.total)}` : 'Unavailble',
       icon: <ExclamationCircleOutlined />,
     },
     {
       title: "Circulating Supply",
-      value: `$ ${millify(cryptoDetails.circulatingSupply)}`,
+      value: cryptoDetails.supply.circulating ? `$ ${millify(cryptoDetails.supply.circulating)}` : 'Unavailble',
       icon: <ExclamationCircleOutlined />,
     },
   ];
@@ -99,13 +99,18 @@ const CryptoDetails = () => {
     <Col className="coin-detail-container">
       <Col className="coin-heading-container">
         <Title level={2} className="coin-name">
-          {data?.data?.coin.name} ({data?.data?.coin.slug}) Price
+          {data?.data?.coin.name} ({data?.data?.coin.symbol}) Price
         </Title>
         <p>
           {cryptoDetails.name} live price in US Dollar (USD). View value
           statistics, market cap and supply.
         </p>
       </Col>
+      <LineChart
+        coinHistory={coinHistory}
+        currentPrice={millify(cryptoDetails.price)}
+        coinName={cryptoDetails.name}
+      />
       <Select
         defaultValue="7d"
         className="select-timeperiod"
@@ -116,11 +121,6 @@ const CryptoDetails = () => {
           <Option key={date}>{date}</Option>
         ))}
       </Select>
-      <LineChart
-        coinHistory={coinHistory}
-        currentPrice={millify(cryptoDetails.price)}
-        coinName={cryptoDetails.name}
-      />
       <Col className="stats-container">
         <Col className="coin-value-statistics">
           <Col className="coin-value-statistics-heading">
@@ -132,8 +132,8 @@ const CryptoDetails = () => {
               as the base and quote currency, the rank, and trading volume.
             </p>
           </Col>
-          {stats.map(({ icon, title, value }) => (
-            <Col className="coin-stats">
+          {stats.map(({ icon, title, value }, idx: number) => (
+            <Col className="coin-stats" key={`${title}-${idx}`}>
               <Col className="coin-stats-name">
                 <Text>{icon}</Text>
                 <Text>{title}</Text>
@@ -152,8 +152,8 @@ const CryptoDetails = () => {
               as the base and quote currency, the rank, and trading volume.
             </p>
           </Col>
-          {genericStats.map(({ icon, title, value }) => (
-            <Col className="coin-stats">
+          {genericStats.map(({ icon, title, value }, idx: number) => (
+            <Col className="coin-stats" key={`${title}-${idx}`}>
               <Col className="coin-stats-name">
                 <Text>{icon}</Text>
                 <Text>{title}</Text>
@@ -174,8 +174,8 @@ const CryptoDetails = () => {
           <Title level={3} className="coin-details-heading">
             {cryptoDetails.name} Links
           </Title>
-          {cryptoDetails.links?.map((link: any) => (
-            <Row className="coin-link" key={link.name}>
+          {cryptoDetails.links?.map((link: any, idx: number) => (
+            <Row className="coin-link" key={`${link.name}-${idx}`}>
               <Title level={5} className="link-name">
                 {link.type}
               </Title>

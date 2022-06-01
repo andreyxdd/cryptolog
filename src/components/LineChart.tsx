@@ -1,7 +1,11 @@
 import React from "react";
-import { Line } from "react-chartjs-2";
-
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title as ChartJSTitle, CategoryScale } from 'chart.js';
 import { Col, Row, Typography } from "antd";
+import moment from "moment";
+
+
+ChartJS.register(LineElement, PointElement, LinearScale, ChartJSTitle, CategoryScale);
 
 const { Title } = Typography;
 
@@ -16,9 +20,9 @@ const LineChart = ({ coinHistory, currentPrice, coinName }: ILineChart) => {
  const coinTimestamp = [];
 
  for (let i = 0; i < coinHistory?.data.history?.length; i += 1) {
-  coinPrice.push(coinHistory.data.history[i].price);
+   coinPrice.push(coinHistory.data.history[i].price);
   coinTimestamp.push(
-   new Date(coinHistory.data.history[i].timestamp).toLocaleDateString()
+    moment(new Date(coinHistory.data.history[i].timestamp * 1000)).format("YYYY-MM-DD[T]HH:mm")
   );
  }
 
@@ -35,17 +39,6 @@ const LineChart = ({ coinHistory, currentPrice, coinName }: ILineChart) => {
   ],
  };
 
- const options = {
-  scales: {
-   yAxes: [
-    {
-     ticks: {
-      beginAtZero: true,
-     },
-    },
-   ],
-  },
- };
 
  return (
   <>
@@ -63,7 +56,7 @@ const LineChart = ({ coinHistory, currentPrice, coinName }: ILineChart) => {
     </Col>
   </Row>
   {/* @ts-ignore */}
-  <Line data={data} options={options} />
+  <Line data={data}   />
   </>
  );
 };
