@@ -1,12 +1,20 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const cryptoApiHeaders = {
-  'x-access-token': 'coinranking905ab4547db0d22ac12475152245f36814bf6182bff1e321'
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+  'x-access-token':'coinranking905ab4547db0d22ac12475152245f36814bf6182bff1e321'
 }
 
+const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 const baseUrl = 'https://api.coinranking.com/v2';
 
-const createRequest = (url: string) => ({ url, headers: cryptoApiHeaders });
+const createRequest = (url: string) => ({
+  url: `${proxyUrl}${baseUrl}${url}`,
+  crossDomain: true,
+  method: 'GET',
+  headers: cryptoApiHeaders
+});
 
 export const cryptoApi = createApi({
   reducerPath: 'cryptoApi',

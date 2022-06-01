@@ -14,7 +14,7 @@ const HomePage = () => {
 
  const GlobalStats = data?.data?.stats;
 
- if (isFetching) return <Loader/>;
+ if (!GlobalStats && isFetching) return <Loader/>;
 
  return (
   <>
