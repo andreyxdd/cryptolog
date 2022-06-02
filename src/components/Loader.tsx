@@ -1,8 +1,8 @@
-import React from "react";
-import { Spin } from "antd";
+import React from 'react';
+import { Spin } from 'antd';
 
-const Loader = () => (
-  <div className="loader">
+const Loader = (): JSX.Element => (
+  <div className='loader'>
     <Spin />
   </div>
 );

@@ -1,0 +1,76 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "react-hooks"
+    ],
+    "rules": {
+        "react/jsx-filename-extension": [ "warn", {"extensions": [".tsx"]} ],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            { "ts": "never", "tsx": "never", "js": "never", "jsx": "never" }
+        ],
+        "quotes": ["error", "single"],
+        "jsx-quotes": ["error", "prefer-single"],
+        // we want to force semicolons
+        "semi": ["error", "always"],
+        // we use 2 spaces to indent our code
+        "indent": ["error", 2],
+        // we want to avoid extraneous spaces
+        "no-multi-spaces": ["error"],
+        "linebreak-style": 0,
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": ["error"],
+        "@typescript-eslint/explicit-function-return-type": [
+            "error", {
+                "allowExpressions": true,
+                "allowDirectConstAssertionInArrowFunctions": false
+            }
+        ],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "react/prop-types": "off",
+        "react/function-component-definition": [
+            2,
+            {
+                "namedComponents": ["function-declaration", "function-expression","arrow-function"],
+                "unnamedComponents": ["function-expression","arrow-function"]
+            }
+        ],
+        "react/require-default-props": [0],
+        "max-len": ["error", {"code": 120}]
+    },
+    "overrides": [
+        {
+            "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+            "rules": {
+                "no-undef": "off"
+            }
+        }
+    ],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"],
+                "moduleDirectory": ["node_modules", "src/"]
+            }
+        }
+    }
+}

@@ -2,25 +2,25 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const cryptoApiHeaders = {
   'Content-Type': 'application/json',
-  //'Access-Control-Allow-Origin': '*',
-  'x-access-token':'coinranking905ab4547db0d22ac12475152245f36814bf6182bff1e321'
-}
+  // 'Access-Control-Allow-Origin': '*',
+  'x-access-token': 'coinranking905ab4547db0d22ac12475152245f36814bf6182bff1e321',
+};
 
 const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 const baseUrl = 'https://api.coinranking.com/v2';
 
-const createRequest = (url: string) => ({
+const createRequest = (url: string): any => ({
   url: `${proxyUrl}${baseUrl}${url}`,
   crossDomain: true,
   method: 'GET',
-  headers: cryptoApiHeaders
+  headers: cryptoApiHeaders,
 });
 
-const coinGeckoBaseUrl = 'https://api.coingecko.com/api/v3/'
+const coinGeckoBaseUrl = 'https://api.coingecko.com/api/v3/';
 
-const createCoinGeckoRequest = (url: string) => ({
+const createCoinGeckoRequest = (url: string): any => ({
   url: `${coinGeckoBaseUrl}${url}`,
-  method: 'GET'
+  method: 'GET',
 });
 
 export const cryptoApi = createApi({
@@ -37,10 +37,7 @@ export const cryptoApi = createApi({
       query: () => createRequest('/exchanges'),
     }),
     getCryptoDetails: builder.query({
-      query: (coinId) => {
-        console.log(coinId)
-        return createRequest(`/coin/${coinId}`)
-      }
+      query: (coinId) => createRequest(`/coin/${coinId}`),
     }),
     getCryptoHistory: builder.query({
       query: ({ coinId, timeperiod }) => createRequest(`/coin/${coinId}/history?timePeriod=${timeperiod}`),
@@ -53,5 +50,5 @@ export const {
   useGetCoinGeckoIdQuery,
   useGetExchangesQuery,
   useGetCryptoDetailsQuery,
-  useGetCryptoHistoryQuery
+  useGetCryptoHistoryQuery,
 } = cryptoApi;
