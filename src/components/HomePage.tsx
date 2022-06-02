@@ -6,17 +6,17 @@ import {
 import { Link } from 'react-router-dom';
 
 import { useGetCryptosQuery } from '../api/cryptoApi';
-
 import { Cryptocurrencies, News, Loader } from '.';
+import { IGlobalStats } from '../types';
 
 const { Title } = Typography;
 
 const HomePage = (): JSX.Element => {
   const { data, isFetching } = useGetCryptosQuery(10);
 
-  const GlobalStats = data?.data?.stats;
+  const globalStats: IGlobalStats = data?.data?.stats;
 
-  if (!GlobalStats && isFetching) return <Loader />;
+  if (!globalStats && isFetching) return <Loader />;
 
   return (
     <>
@@ -25,30 +25,30 @@ const HomePage = (): JSX.Element => {
       </Title>
       <Row>
         <Col span={12}>
-          <Statistic title='Total Cryptocurrencies' value={GlobalStats.total} />
+          <Statistic title='Total Cryptocurrencies' value={globalStats?.total} />
         </Col>
         <Col span={12}>
           <Statistic
             title='Total Exhcanges'
-            value={millify(GlobalStats.totalExchanges)}
+            value={millify(globalStats.totalExchanges ? globalStats.totalExchanges : 0)}
           />
         </Col>
         <Col span={12}>
           <Statistic
             title='Total Market Cap'
-            value={millify(GlobalStats.totalMarketCap)}
+            value={millify(globalStats.totalMarketCap ? globalStats.totalMarketCap : 0)}
           />
         </Col>
         <Col span={12}>
           <Statistic
             title='Total 24h Volume'
-            value={millify(GlobalStats.total24hVolume)}
+            value={millify(globalStats?.total24hVolume ? globalStats.total24hVolume : 0)}
           />
         </Col>
         <Col span={12}>
           <Statistic
             title='Total Markets'
-            value={millify(GlobalStats.totalMarkets)}
+            value={millify(globalStats?.totalMarkets ? globalStats.totalMarkets : 0)}
           />
         </Col>
       </Row>

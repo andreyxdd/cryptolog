@@ -34,6 +34,7 @@ a:hover {
 }
 
 .main {
+  width: 100%;
   margin-left: 0 !important;
 }
 
@@ -167,6 +168,7 @@ a:hover {
  justify-content: space-between;
  align-items: center;
  gap: 40px;
+ margin-top: 20px;
 }
 
 .stats-container h2 {
@@ -321,6 +323,7 @@ a:hover {
 }
 
 .chart-header {
+ padding-top: 15px;
  display: flex;
  justify-content: space-between;
  gap: 50px;
@@ -358,8 +361,15 @@ a:hover {
  margin: 20px auto 30px auto;
  width: 250px;
 }
+.search-news-input{
+  display: flex;
+  flex-direction: row;
+}
 .crypto-card-container {
  min-height: 65vh !important;
+}
+.crypto-empty-container {
+ min-height: 67vh !important;
 }
 .crypto-card {
  min-width: 250px;
@@ -378,4 +388,5 @@ a:hover {
  flex-direction: column;
  padding: 20px;
  align-items: center;
+ bottom: 0;
 }
