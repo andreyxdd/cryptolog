@@ -73,7 +73,7 @@ const Cryptocurrencies: React.FC<ICryptocurrencies> = ({ simplified }) => {
                   hoverable
                 >
                   <p>
-                    Price:
+                    Price, $:
                     {' '}
                     {millify(currency.price)}
                   </p>

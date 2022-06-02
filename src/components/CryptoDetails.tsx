@@ -131,12 +131,14 @@ const CryptoDetails = (): JSX.Element => {
             <Title level={3} className='coin-details-heading'>
               {cryptoDetails?.name}
               {' '}
-              Value Statistics
+              Market Statistics
             </Title>
             <p>
-              An overview showing the statistics of
+              An overview of
               {' '}
               {cryptoDetails?.name}
+              {' '}
+              statistics
               , such
               as the base and quote currency, the rank, and trading volume.
             </p>
@@ -154,14 +156,12 @@ const CryptoDetails = (): JSX.Element => {
         <Col className='other-stats-info'>
           <Col className='coin-value-statistics-heading'>
             <Title level={3} className='coin-details-heading'>
-              Other Stats Info
+              Other Market Data
             </Title>
             <p>
-              An overview showing the statistics of
+              Check below the base and quote currency, the rank, and trading volume of
               {' '}
               {cryptoDetails?.name}
-              , such
-              as the base and quote currency, the rank, and trading volume.
             </p>
           </Col>
           {genericStats.map(({ icon, title, value }) => (
@@ -195,7 +195,7 @@ const CryptoDetails = (): JSX.Element => {
           <Title level={3} className='coin-details-heading'>
             {cryptoDetails?.name}
             {' '}
-            Links
+            Useful Links
           </Title>
           {cryptoDetails?.links && cryptoDetails?.links?.map((link: any) => (
             <Row className='coin-link' key={`${link.name}-${link.url}`}>
