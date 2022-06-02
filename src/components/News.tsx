@@ -29,9 +29,11 @@ const News: React.FC<INews> = ({ simplified }) => {
 
   return (
     <>
-      <Title level={2} className='heading'>
-        Global Crypto News
-      </Title>
+      {!simplified && (
+        <Title level={2} className='heading'>
+          Global Crypto News
+        </Title>
+      )}
       <Row gutter={[32, 32]}>
         {!simplified && (
           <Col span={24} className='search-news-input'>
