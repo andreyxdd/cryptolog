@@ -6,7 +6,7 @@ echo '🏗️👷 Styling, testing, and building the project before committing �
 echo
 
 # Check ESLint Standards
-yarn check-lint ||
+npm run check-lint ||
 (
   echo
   echo '❌ ESLint check failed. Make the required changes listed above, add changes and try to commit again ❌'
@@ -15,7 +15,7 @@ yarn check-lint ||
 )
 
 # Check tsconfig standards
-yarn check-types ||
+npm run check-types ||
 (
   echo
   echo '❌ Typescript types-check failed. Make the required changes listed above, add changes and try to commit again ❌'
@@ -29,7 +29,7 @@ echo '✅ All the checks are successfully passed. Building project proceeds next
 echo
 
 
-yarn build ||
+npm run build ||
 (
   echo
   echo '❌ React build failed: view the above errors ❌'

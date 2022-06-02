@@ -33,7 +33,7 @@
     "eject": "react-scripts eject",
     "check-types": "tsc --pretty --noEmit",
     "check-lint": "eslint . --ext ts --ext tsx --ignore-pattern \"node_modules/\"",
-    "test-all": "npm start check-lint && mpm start check-types && npm start build"
+    "test-all": "npm run check-lint && npm run check-types && npm run build"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix"
